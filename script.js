@@ -1,5 +1,6 @@
 /**
  * 三菱自動車ディーラー NFC名刺LP - script.js
+ * Premium Redesign – subtle, elegant interactions
  */
 
 // CAMPAIGN CAROUSEL
@@ -29,7 +30,7 @@
         autoPlayTimer = setInterval(() => {
             const total = carousel.querySelectorAll('.campaign-card').length;
             scrollToCard((currentIndex + 1) % total);
-        }, 4000);
+        }, 5000);
     }
 
     function stopAutoPlay() {
@@ -54,11 +55,14 @@
                 const cardCenter = card.offsetLeft + card.offsetWidth / 2;
                 if (Math.abs(scrollPos - cardCenter) < card.offsetWidth / 2 + 16) updateDots(i);
             });
-        }, 50);
+        }, 60);
     });
 
     carousel.addEventListener('touchstart', stopAutoPlay, { passive: true });
-    carousel.addEventListener('touchend', startAutoPlay, { passive: true });
+    carousel.addEventListener('touchend', () => {
+        stopAutoPlay();
+        startAutoPlay();
+    }, { passive: true });
     startAutoPlay();
 })();
 
@@ -69,7 +73,7 @@
         entries.forEach(entry => {
             if (entry.isIntersecting) entry.target.classList.add('in-view');
         });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
     document.querySelectorAll('.animate-fade-up').forEach(el => observer.observe(el));
 })();
 
@@ -90,7 +94,7 @@
     function closeModal() {
         modal.classList.remove('active');
         document.body.style.overflow = '';
-        if (iframe) setTimeout(() => { iframe.src = ''; }, 300);
+        if (iframe) setTimeout(() => { iframe.src = ''; }, 400);
     }
 
     if (placeholder) {
@@ -117,7 +121,7 @@
         entries.forEach(entry => {
             stickyCTA.classList.toggle('hidden', entry.isIntersecting);
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.08 });
     observer.observe(hero);
 })();
 
@@ -143,6 +147,3 @@
         });
     });
 })();
-
-
-console.log('// Mitsubishi Dealer NFC-LP initialized');
